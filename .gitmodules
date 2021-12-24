@@ -1,0 +1,3 @@
+[submodule "stacks"]
+	path = stacks
+	url = https://github.com/syvita/stacks
