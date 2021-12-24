@@ -27,6 +27,7 @@ fn main() {
             .address("0.0.0.0")
             .port(3700)
             .workers(event_workers)
+            //.ident("Ronin", true)
             .finalize()
             .unwrap();
 
@@ -40,6 +41,7 @@ fn main() {
         .address("0.0.0.0")
         .port(3000)
         .workers(api_workers.try_into().unwrap())
+        //.ident("Ronin", true)
         .finalize()
         .unwrap();
 
