@@ -31,6 +31,8 @@ Instead of taking 1-15ms to find a transaction from its TXID, then loading it fr
 
 The disadvantages to this are here too - everything has to be stored in RAM in the first place. RAM is limited and expensive, so most people won't be able to run Ronin optimally, entirely in memory (the API data is probably around 30-50GB). Though, many people have SSDs or even NVME drives, which are pretty fast too. 
 
+**NOTE:** I've looking at our mainnet nodes at Syvita and PostgreSQL is ~3.8GB in size. Perhaps the Redis store won't be as much of an issue as I make it here as most people have over 4GB of RAM free.
+
 After your real memory fills up, Ronin runs exactly the same, but your operating system will start pushing data from the datastore into "virtual memory" which is actually on your disk in a swap file. When the API receives a request for a tx, it asks the datastore for it, who then asks the OS' memory for it, who then has to swap it from the (relatively) slow disk to RAM. It's less efficient, but it's still way faster than using PostgreSQL or something similiar. 
 
 This is one of the ways Ronin can run on anything from a Raspberry Pi to a very powerful cloud server in an efficient way. Obviously, the cloud server will be orders of magnitude faster than a Raspberry Pi, but at that point, the biggest latency will originate from the fiber cables to your home. If you want the fastest experience, run Ronin on a decently high performance server at home.
