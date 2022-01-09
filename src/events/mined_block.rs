@@ -10,6 +10,8 @@
 // register for `MinedBlocks` events, `AnyEvent` observers will not receive the 
 // events by default.
 
+// Example request body: ./example_events/mined_block.json
+
 // We can ignore this event as the API doesn't need to store this information.
 
 // =============================================================================

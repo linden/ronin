@@ -16,13 +16,21 @@ fn main() {
     // and `MY_APP_` prefixed environment variables to supersede its values.
     use rocket::config::{Config, Environment};
 
+    let cpu_cores = num_cpus::get();
+
+    if cpu_cores == 1 { panic!("You need at least 2 CPU cores to run Ronin!"); }
+
     // we want to share system resources between the API and the Events handler
     // events gets a single thread, and the API uses the rest
-    let api_workers = num_cpus::get()-1;
+    let api_workers = cpu_cores-1;
     let event_workers = 1;
+    
+    println!("Booting Ronin with {} API workers and {} event worker", api_workers, event_workers);
 
     // create thread for events handler
-    std::thread::spawn(move || {
+    let events_handler = std::thread::spawn(move || {
+        // TODO: have profiles for dev, staging, prod
+        // TODO: support custom profiles
         let config = Config::build(Environment::Staging)
             .address("0.0.0.0")
             .port(3700)
@@ -38,6 +46,8 @@ fn main() {
 
     // main thread for API
     let config = Config::build(Environment::Staging)
+        // TODO: have profiles for dev, staging, prod
+        // TODO: support custom profiles
         .address("0.0.0.0")
         .port(3000)
         .workers(api_workers.try_into().unwrap())
@@ -48,5 +58,8 @@ fn main() {
     rocket::custom(config)
         .mount("/", routes![hello])
         .launch();
+
+    // wait for eventsHandler to finish before exiting
+    events_handler.join().unwrap();
 }
 

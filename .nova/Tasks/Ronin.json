@@ -1,0 +1,13 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "cargo build"
+    },
+    "run" : {
+      "enabled" : true,
+      "script" : "cargo run"
+    }
+  },
+  "identifier" : "4C67A3DF-1C40-4B19-A52A-34E14373A518"
+}

@@ -1,0 +1,20 @@
+{
+    "block_hash": "0x4eaabcd105865e471f697eff5dd5bd85d47ecb5a26a3379d74fae0ae87c40904",
+    "staks_height": 3,
+    "target_burn_height": 745000,
+    "block_size": 145000,
+    "anchored_cost": {
+      "runtime": 100,
+      "read_count": 10,
+      "write_count": 5,
+      "read_length": 150,
+      "write_length": 75
+    },
+    "confirmed_microblocks_cost": {
+      "runtime": 100,
+      "read_count": 10,
+      "write_count": 5,
+      "read_length": 150,
+      "write_length": 75
+    }
+  }

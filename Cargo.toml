@@ -10,4 +10,5 @@ figment = {version = "0.10.6", features = ["env", "toml", "json"]}
 num_cpus = "1.13.1"
 redis = "0.21.4"
 rocket = "0.4.10"
+blockstack-core = {  git = "https://github.com/syvita/stacks" }
 
