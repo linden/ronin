@@ -36,7 +36,7 @@ pub struct Pool(pub r2d2::Pool<RedisConnectionManager>);
 impl<'r> request::FromRequest<'r> for Pool {
 	type Error = AnyhowError;
 	
-    async fn from_request(request: &'r request::Request<'_>) -> request::Outcome<RedisConnection, Self::Error> {
+    async fn from_request(request: &'r request::Request<'_>) -> request::Outcome<Pool, Self::Error> {
         match request.guard::<Pool>().await {
         	Success(pool) => Outcome::Success(pool),
 			Failure(error) => Outcome::Failure((http::Status::ServiceUnavailable, anyhow!(error.0))),
