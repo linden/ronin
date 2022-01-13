@@ -11,11 +11,3 @@
 
 use rocket::serde::json::{Json, Value, json};
 use rocket::serde::{Serialize, Deserialize};
-
-#[post("/new_mempool_tx", format = "json", data = "<message>")]
-async fn new(message: Json<Message<'_>>, list: Messages<'_>) -> Value {
-    let mut list = list.lock().await;
-    let id = list.len();
-    list.push(message.message.to_string());
-    json!({ "status": "ok", "id": id })
-}

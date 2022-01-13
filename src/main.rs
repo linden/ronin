@@ -6,6 +6,9 @@ extern crate num_cpus;
 
 #[cfg(test)] mod tests;
 
+mod db;
+mod events;
+
 #[get("/")]
 fn hello() -> &'static str {
     "Hello, world!"
@@ -49,14 +52,17 @@ fn main() {
         // TODO: have profiles for dev, staging, prod
         // TODO: support custom profiles
         .address("0.0.0.0")
-        .port(3000)
+        .port(3999)
         .workers(api_workers.try_into().unwrap())
         //.ident("Ronin", true)
         .finalize()
         .unwrap();
+        
+    use db::redis::pool;
 
     rocket::custom(config)
         .mount("/", routes![hello])
+        .manage(pool())
         .launch();
 
     // wait for eventsHandler to finish before exiting
