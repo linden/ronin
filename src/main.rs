@@ -3,6 +3,7 @@
 #[macro_use] extern crate rocket;
 extern crate figment;
 extern crate num_cpus;
+#[macro_use] extern crate anyhow;
 
 #[cfg(test)] mod tests;
 
